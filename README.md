@@ -83,8 +83,8 @@ npm run dev
 ### 5. Access the Application
 
 - **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:5000
-- **Health Check**: http://localhost:5000/api/health
+- **Backend API**: http://localhost:5001
+- **Health Check**: http://localhost:5001/api/health
 
 ## 🤖 AI Provider Configuration
 
@@ -190,7 +190,7 @@ QWEN_API_KEY=your-qwen-api-key-here
 QWEN_API_URL=https://dashscope.aliyuncs.com/api/v1/services/aigc/text2image/image-synthesis
 
 # Server
-PORT=5000
+PORT=5001
 NODE_ENV=development
 
 # File Upload
