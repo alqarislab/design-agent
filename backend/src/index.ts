@@ -107,8 +107,11 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// Multer for file uploads
-const upload = multer({ dest: 'uploads/temp/' });
+// Multer for file uploads (use memory storage to access file buffer, add size limits)
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 }
+});
 
 // Create upload directories
 const createUploadDirs = async () => {
@@ -198,7 +201,7 @@ const generateDesign = async (project: any, content: any, provider: string = 'op
 // Auth Routes
 app.post('/api/auth/register', async (req, res) => {
   try {
-    const { email, password, firstName, lastName, role } = req.body;
+    const { email, password, firstName, lastName } = req.body;
 
     // Check if user exists
     const userRef = db.collection('users');
@@ -217,7 +220,8 @@ app.post('/api/auth/register', async (req, res) => {
       password: hashedPassword,
       firstName,
       lastName,
-      role: role || 'user',
+      // Always assign the least-privileged role on registration
+      role: 'user',
       createdAt: new Date(),
       updatedAt: new Date()
     };
